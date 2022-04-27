@@ -11,17 +11,12 @@ def pause_print(message):
     time.sleep(2)
 
 
-def valid_input(prompt, choice_a, choice_b):
+def valid_input(prompt, options):
     while True:
-        choice = input(prompt).lower()
-        if choice_a in choice:
-            break
-        elif choice_b in choice:
-            break
-        else:
-            pause_print("Sorry, I don't understand.")
-    return choice
-
+        option = input(prompt).lower()
+        if option in options:
+            return option
+        pause_print(f'Sorry, your option "{option}" is invalid. Please try again!')
 
 # function to print introductory message
 def intro():
@@ -76,7 +71,7 @@ def starting_point():
     global been_inside_cave
     pause_print("Enter 1 to knock on the door of the house.")
     pause_print("Enter 2 to peer into the cave.")
-    choice = valid_input("What would you like to do?\n(Please enter 1 or 2.)", "1", "2")
+    choice = valid_input('Select an option: 1 or 2 - ', ['1', '2'])
     if choice == "1":
         house()
     elif choice == "2":
@@ -84,9 +79,6 @@ def starting_point():
             cave_story1()
         else:
             cave_story2()
-    # else:
-    #     pause_print("Invalid Entry!")
-     # starting_point()
 
 
 # battle outcome
@@ -117,19 +109,16 @@ def run():
 
 
 def battle_or_retreat():
-    choice = valid_input("Do you want to fight (F) or run away (R)?", "f", "r")
+    choice = valid_input('Would you like to fight or run?: F or R - ', ['f', 'r'])
     if choice == "f":
         fight()
     elif choice == "r":
         run()
-    # else:
-    #     pause_print("Invalid selection! Choose F to fight or R to run")
-        # battle_or_retreat()
 
 
 # prompt to reply or end play
 def restart():
-    choice = valid_input("Would you like to play again? (y/n)", "y", "n")
+    choice = valid_input('Would you like to play again: Y or N - ', ['y', 'n'])
     if choice == "y":
         pause_print("Hold on..restarting game")
         intro()
@@ -137,9 +126,6 @@ def restart():
     elif choice == "n":
         pause_print("thank you, goodbye")
         quit()
-    # else:
-    #     pause_print("Invalid Selection..select Y or N")
-        # restart()
 
 
 # entry point
